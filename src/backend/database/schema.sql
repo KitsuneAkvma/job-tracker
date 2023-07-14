@@ -1,0 +1,26 @@
+CREATE TABLE Jobs (
+_ID INT PRIMARY KEY auto_increment,
+Company VARCHAR(50) NOT NULL,
+JobTitle VARCHAR(50) NOT NULL,
+JobLocation VARCHAR(50) NOT NULL,
+ApplicationDate DATE,
+ApplicationStatus VARCHAR(20) NOT NULL,
+CoverLetter TEXT,
+Owner VARCHAR(20),
+Created TIMESTAMP NOT NULL DEFAULT NOW()
+Updated
+);
+
+CREATE TABLE Users (
+_ID INT PRIMARY KEY auto_increment,
+username VARCHAR(20) NOT NULL UNIQUE,
+email VARCHAR(320) NOT NULL,
+pass VARCHAR(128) NOT NULL,
+firstName VARCHAR(200),
+lastName VARCHAR(200),
+token VARCHAR(400),
+verified BOOLEAN NOT NULL DEFAULT FALSE,
+verificationToken VARCHAR(300),
+Created TIMESTAMP NOT NULL DEFAULT NOW(),
+Updated TIMESTAMP NOT NULL DEFAULT NOW()
+);
