@@ -1,5 +1,5 @@
 import express from "express";
-import { login, signup } from "../services/users.js";
+import { login, signup, verifyAccount } from "../services/users.js";
 
 export const userRouter = express.Router();
 
@@ -27,11 +27,9 @@ userRouter.post("/signup", async (req, res, next) => {
 
 userRouter.get("/verification/:token", async (req, res, next) => {
   const token = req.params.token;
-  const credentials = req.body;
   try {
-    res
-      .status(200)
-      .json({ status: 200, message: "This will be email verification route." });
+    const verification = await verifyAccount(token);
+    res.status(verification.status).json(verification);
   } catch (error) {
     next(error);
   }

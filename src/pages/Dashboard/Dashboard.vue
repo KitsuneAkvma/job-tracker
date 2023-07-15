@@ -1,5 +1,5 @@
 <template>
-  <RouterView />
+  <div>DASHBOARD</div>
 </template>
 
 <script setup lang="ts"></script>

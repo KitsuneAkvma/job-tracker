@@ -9,7 +9,7 @@ import bcrypt from "bcrypt";
 //     return bcrypt.hash(password, salt);
 //   });
 
-export const getCurrentUser = async (credentials) => {
+export const getCurrentUser = async () => {
   try {
   } catch (error) {
     console.error(colors.bgRed(error));
@@ -21,7 +21,6 @@ export const signup = async (credentials) => {
     ...credentials,
     pass: hashedPassword,
   };
-  console.log({ accountData });
   const values = Object.values(accountData);
   const verificationToken = nanoid(50);
   const { username, email } = credentials;
@@ -44,8 +43,21 @@ export const signup = async (credentials) => {
     console.error(colors.bgRed(error));
   }
 };
-export const verifyAccount = async (credentials) => {
+export const verifyAccount = async (token) => {
   try {
+    const updateUser = await pool.query(
+      `
+      UPDATE users
+      SET verified = TRUE, verificationToken = NULL
+      WHERE verificationToken = ?;
+    `,
+      [token],
+    );
+    return {
+      status: 202,
+      message: "Account successfully verified.",
+      data: null,
+    };
   } catch (error) {
     console.error(colors.bgRed(error));
   }
@@ -57,7 +69,13 @@ export const resendEmailVerify = async (credentials) => {
   }
 };
 export const login = async (credentials) => {
+  const { email, password } = credentials;
   try {
+    const user = await pool.query(
+      `SELECT * FROM Users
+       WHERE email = ? AND password = ?;`,
+    );
+
     return {
       status: 201,
       message: "Logged in !",
