@@ -11,7 +11,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@braid/vue-formulate": "^2.5.3",
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
@@ -24,9 +23,7 @@
     "nodemon": "^3.0.1",
     "prettier": "^3.0.0",
     "tailwind": "^4.0.0",
-    "vee-validate": "^4.5.8",
     "vue": "^3.3.4",
-    "vue-formulate": "^0.12.1",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
@@ -36,6 +33,7 @@
     "@types/prettier": "^2.7.3",
     "@types/vue": "^2.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/compiler-sfc": "^3.3.4",
     "autoprefixer": "^10.4.14",
     "express": "^4.18.2",
     "mysql2": "^3.5.1",
