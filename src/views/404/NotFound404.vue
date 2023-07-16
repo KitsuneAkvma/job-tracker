@@ -1,5 +1,5 @@
 <template>
-  <div>DASHBOARD</div>
+  <h1>404 not found</h1>
 </template>
 
 <script setup lang="ts"></script>
