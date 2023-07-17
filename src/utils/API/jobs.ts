@@ -1,16 +1,19 @@
-import axios from "axios";
-const URL = "http://localhost:8080";
+import axios, { AxiosResponse } from "axios";
+import { IJobData } from "../types";
+const URL = "http://localhost:8080/jobs";
 
-export const getJobs = async () => {
+export const getAllJobs = async (): Promise<IJobData[]> => {
   try {
-    const res = await axios.get(`${URL}/jobs`);
+    const res: AxiosResponse = await axios.get(`${URL}`);
 
-    return res;
-  } catch (error) {
+    return res.data.data;
+  } catch (error: any) {
+    console.log({error})
     return error;
   }
 };
 
+export const getJob = async () => {};
 export const addJob = async () => {};
 
 export const removeJob = async () => {};

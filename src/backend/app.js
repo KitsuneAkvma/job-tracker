@@ -3,6 +3,7 @@ import colors from "colors";
 
 import { configDotenv } from "dotenv";
 import morgan from "morgan";
+import cors from "cors";
 import jobsRouter from "./routes/jobsRouter.js";
 import { userRouter } from "./routes/userRouter.js";
 
@@ -18,6 +19,7 @@ app.use(
     extended: true,
   }),
 );
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome Home" });

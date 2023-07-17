@@ -11,9 +11,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "eslint": "^8.44.0",
     "express-router": "^0.0.1",

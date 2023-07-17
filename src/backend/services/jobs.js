@@ -7,7 +7,7 @@ export const getAllJobs = async () => {
     SELECT * FROM Jobs
     `);
 
-    return { status: 302, message: "Successfully found jobs", data: rows };
+    return { status: 200, message: "Successfully found jobs", data: rows };
   } catch (error) {
     console.error(colors.bgRed(error));
   }
