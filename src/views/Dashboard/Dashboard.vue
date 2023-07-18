@@ -8,17 +8,14 @@
         class="px-3 py-2 rounded-lg w-3/4 text-center placeholder:text-gray-500"
       />
       <div class="flex gap-2">
-        <span
-          class="px-3 py-1 bg-yellow-500 rounded-xl text-gray-100 tracking-wide hover:brightness-125 hover:cursor-pointer"
+        <span class="badge__sent hover:brightness-125 hover:cursor-pointer"
           >Sent</span
-        ><span
-          class="px-3 py-1 bg-rose-500 rounded-xl text-gray-100 tracking-wide hover:brightness-125 hover:cursor-pointer"
+        ><span class="badge__rejected hover:brightness-125 hover:cursor-pointer"
           >Rejected</span
-        ><span
-          class="px-3 py-1 bg-green-500 rounded-xl text-gray-100 tracking-wide hover:brightness-125 hover:cursor-pointer"
+        ><span class="badge__answered hover:brightness-125 hover:cursor-pointer"
           >Answered</span
         ><span
-          class="px-3 py-1 bg-gray-500 rounded-xl text-gray-100 tracking-wide hover:brightness-125 hover:cursor-pointer"
+          class="badge__no-respond hover:brightness-125 hover:cursor-pointer"
           >No respond</span
         >
       </div>
@@ -45,8 +42,12 @@
       <i class="fa-solid fa-gear text-3xl"></i>
     </router-link>
   </main>
+  <JobModal v-if="isModalOpen" />
 </template>
 
 <script async setup lang="ts">
 import JobList from "../../components/Dashboard/JobsList.vue";
+import JobModal from "../../components/Dashboard/JobModal.vue";
+
+const isModalOpen = false;
 </script>

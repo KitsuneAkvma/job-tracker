@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./badges.css";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -44,14 +45,24 @@ h1 {
   line-height: 1.1;
 }
 
-
-
-
 #app {
-  width: 1280px;
+  max-width: 1980px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 0 2rem;
   text-align: center;
+}
+
+.badge__sent {
+  @apply px-3 py-1 bg-yellow-500 rounded-xl text-gray-100 tracking-wide;
+}
+.badge__rejected {
+  @apply px-3 py-1 bg-rose-500 rounded-xl text-gray-100 tracking-wide;
+}
+.badge__answered {
+  @apply px-3 py-1 bg-green-500 rounded-xl text-gray-100 tracking-wide;
+}
+.badge__no-respond {
+  @apply px-3 py-1 bg-gray-500 rounded-xl text-gray-100 tracking-wide;
 }
 
 @media (prefers-color-scheme: light) {
@@ -62,5 +73,4 @@ h1 {
   a:hover {
     color: #747bff;
   }
-
 }
