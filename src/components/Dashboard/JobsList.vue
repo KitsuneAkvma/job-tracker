@@ -26,12 +26,14 @@
     </li>
   </ul>
   <h3 v-else class="text-gray-500">You don't have any job added</h3>
+  <addJobModal />
 </template>
 
 <script setup lang="ts">
 import { getAllJobs } from "../../utils/API/jobs";
 import { IJobData } from "../../utils/types";
 import { useSelectClass } from "../../utils/useSelectClass";
+import addJobModal from "./addJobModal.vue";
 const fetchJobs = async (): Promise<IJobData[]> => {
   const jobs = await getAllJobs();
   return jobs;
@@ -70,7 +72,3 @@ function formatDate(date: Date) {
 </script>
 
 <style scoped></style>
-<!-- {{ job.Company }} | {{ job.JobTitle }} | {{ job.JobLocation }} |
-      {{ job.WhereFound }} | {{ job.ApplicationDate }} |
-      {{ job.ApplicationStatus }} | {{ job.CoverLetter }} |
-      {{ job.JobOfferLink }} | {{ job.Owner }} -->

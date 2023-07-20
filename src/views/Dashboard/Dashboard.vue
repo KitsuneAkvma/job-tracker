@@ -1,5 +1,11 @@
 <template>
   <main class="w-full flex flex-col gap-10 min-h-screen pt-10">
+    <router-link
+      to="/settings"
+      class="absolute top-10 right-10 text-neutral-200 transition-all hover:text-lime-100 hover:rotate-180 hover:scale-90"
+    >
+      <i class="fa-solid fa-gear text-3xl"></i>
+    </router-link>
     <div class="flex flex-col gap-3 justify-center items-center">
       <input
         type="search"
@@ -8,14 +14,14 @@
         class="px-3 py-2 rounded-lg w-3/4 text-center placeholder:text-gray-500"
       />
       <div class="flex gap-2">
-        <span class="badge__sent hover:brightness-125 hover:cursor-pointer"
+        <span class="badge--sent hover:brightness-125 hover:cursor-pointer"
           >Sent</span
-        ><span class="badge__rejected hover:brightness-125 hover:cursor-pointer"
+        ><span class="badge--rejected hover:brightness-125 hover:cursor-pointer"
           >Rejected</span
-        ><span class="badge__answered hover:brightness-125 hover:cursor-pointer"
+        ><span class="badge--answered hover:brightness-125 hover:cursor-pointer"
           >Answered</span
         ><span
-          class="badge__no-respond hover:brightness-125 hover:cursor-pointer"
+          class="badge--no-respond hover:brightness-125 hover:cursor-pointer"
           >No respond</span
         >
       </div>
@@ -31,16 +37,10 @@
 
     <button
       type="button"
-      class="fixed bottom-10 right-10 flex items-center justify-center w-20 aspect-square rounded-full bg-lime-500 drop-shadow-md text-black text-2xl transition-all hover:bg-lime-400 hover:scale-105"
+      class="button--primary fixed bottom-10 right-10 z-0 w-20 aspect-square"
     >
       <i class="fa-solid fa-plus w-20"></i>
     </button>
-    <router-link
-      to="/settings"
-      class="absolute top-10 right-10 text-neutral-200 transition-all hover:text-lime-100 hover:rotate-180 hover:scale-90"
-    >
-      <i class="fa-solid fa-gear text-3xl"></i>
-    </router-link>
   </main>
   <JobModal v-if="isModalOpen" />
 </template>

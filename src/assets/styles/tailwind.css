@@ -9,7 +9,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  @apply bg-zinc-900 text-slate-300;
+  @apply bg-gray-950 text-slate-300;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -52,17 +52,41 @@ h1 {
   text-align: center;
 }
 
-.badge__sent {
+.button--primary {
+  @apply flex items-center justify-center
+rounded-full bg-lime-500 drop-shadow-md text-black text-2xl transition-all hover:bg-lime-400 hover:scale-105;
+}
+
+.badge--sent {
   @apply px-3 py-1 bg-yellow-500 rounded-xl text-gray-100 tracking-wide;
 }
-.badge__rejected {
+.badge--rejected {
   @apply px-3 py-1 bg-rose-500 rounded-xl text-gray-100 tracking-wide;
 }
-.badge__answered {
+.badge--answered {
   @apply px-3 py-1 bg-green-500 rounded-xl text-gray-100 tracking-wide;
 }
-.badge__no-respond {
+.badge--no-respond {
   @apply px-3 py-1 bg-gray-500 rounded-xl text-gray-100 tracking-wide;
+}
+
+.modal__backdrop {
+  @apply absolute z-10 top-0 left-0 w-screen h-screen bg-slate-700 opacity-50 backdrop:blur-xl;
+}
+.modal__content {
+  @apply absolute z-20 origin-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/6 h-5/6 py-8 px-10 flex flex-col justify-center opacity-100 bg-gray-900;
+}
+.form {
+  @apply flex flex-wrap flex-col justify-center gap-5;
+}
+.form__input {
+  @apply h-10 w-64 py-2 px-2  bg-gray-900  border-zinc-600 border-b placeholder:text-zinc-500;
+}
+.form__select {
+  @apply h-10 w-64 py-1 px-2 bg-gray-900 rounded-md border-zinc-600 border;
+}
+.form__textarea {
+  @apply w-full py-2 px-2 h-32 bg-gray-900 rounded-md border-zinc-600 border placeholder:text-zinc-500;
 }
 
 @media (prefers-color-scheme: light) {

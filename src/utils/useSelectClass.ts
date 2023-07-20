@@ -1,17 +1,17 @@
 export const useSelectClass = (name: String): string => {
   switch (name) {
     case "Sent" || "In progress":
-      return "badge__sent";
+      return "badge--sent";
       break;
     case "Answered":
-      return "badge__answered";
+      return "badge--answered";
       break;
     case "Rejected":
-      return "badge__rejected";
+      return "badge--rejected";
       break;
 
     default:
-      return "badge__no-respond";
+      return "badge--no-respond";
       break;
   }
 };

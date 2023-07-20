@@ -27,6 +27,18 @@ export interface IJobData {
   Updated: Date;
 }
 
+export interface INewJobData {
+  Company: string;
+  JobTitle: string;
+  WhereFound: string;
+  JobLocation: string;
+  ApplicationDate: Date;
+  ApplicationStatus: string;
+  CoverLetter: string;
+  JobOfferLink: string;
+  Owner: number;
+}
+
 export interface IUserData {
   _ID: number;
   Username: string;
