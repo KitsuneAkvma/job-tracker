@@ -3,7 +3,8 @@
     <li
       v-for="job in sortedJobs"
       key="{{job._ID}}"
-      class="p-5 flex border-lime-300 border-2 w-4/12 justify-between"
+      @click="$emit('moreInfo', job)"
+      class="p-5 flex border-lime-300 border-2 w-4/12 justify-between cursor-pointer"
     >
       <div class="text-start">
         <h3>{{ job.Company }}</h3>
@@ -26,14 +27,13 @@
     </li>
   </ul>
   <h3 v-else class="text-gray-500">You don't have any job added</h3>
-  <addJobModal />
 </template>
 
 <script setup lang="ts">
 import { getAllJobs } from "../../utils/API/jobs";
 import { IJobData } from "../../utils/types";
 import { useSelectClass } from "../../utils/useSelectClass";
-import addJobModal from "./addJobModal.vue";
+
 const fetchJobs = async (): Promise<IJobData[]> => {
   const jobs = await getAllJobs();
   return jobs;

@@ -28,7 +28,7 @@
     </div>
     <Suspense>
       <template #default>
-        <JobList />
+        <JobList @moreInfo="openInfoModal" />
       </template>
       <template #fallback>
         <span>Loading...</span>
@@ -37,17 +37,38 @@
 
     <button
       type="button"
+      @click="openAddModal"
       class="button--primary fixed bottom-10 right-10 z-0 w-20 aspect-square"
     >
       <i class="fa-solid fa-plus w-20"></i>
     </button>
   </main>
-  <JobModal v-if="isModalOpen" />
+  <JobModal
+    v-if="isInfoModalOpen"
+    @close="closeInfoModal"
+    :jobOffer="selectedJobOffer"
+  />
+  <addJobModal v-if="isAddJobModalOpen" @close="closeAddModal" />
 </template>
 
 <script async setup lang="ts">
 import JobList from "../../components/Dashboard/JobsList.vue";
 import JobModal from "../../components/Dashboard/JobModal.vue";
+import addJobModal from "../../components/Dashboard/addJobModal.vue";
+import { ref } from "vue";
+import { IJobData } from "../../utils/types";
 
-const isModalOpen = false;
+const isAddJobModalOpen = ref(false);
+const isInfoModalOpen = ref(false);
+const selectedJobOffer = ref<IJobData>();
+
+const openAddModal = () => (isAddJobModalOpen.value = true);
+const closeAddModal = () => (isAddJobModalOpen.value = false);
+
+const openInfoModal = (job: IJobData) => {
+  selectedJobOffer.value = job;
+  isInfoModalOpen.value = true;
+  console.log(selectedJobOffer);
+};
+const closeInfoModal = () => (isInfoModalOpen.value = false);
 </script>

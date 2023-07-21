@@ -71,10 +71,10 @@ rounded-full bg-lime-500 drop-shadow-md text-black text-2xl transition-all hover
 }
 
 .modal__backdrop {
-  @apply absolute z-10 top-0 left-0 w-screen h-screen bg-slate-700 opacity-50 backdrop:blur-xl;
+  @apply fixed z-10 top-0 left-0 w-screen h-screen bg-slate-700 opacity-50 backdrop:blur-xl;
 }
 .modal__content {
-  @apply absolute z-20 origin-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/6 h-5/6 py-8 px-10 flex flex-col justify-center opacity-100 bg-gray-900;
+  @apply fixed z-20 origin-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/6 h-5/6 py-8 px-10 flex flex-col justify-center opacity-100 bg-gray-900;
 }
 .form {
   @apply flex flex-wrap flex-col justify-center gap-5;

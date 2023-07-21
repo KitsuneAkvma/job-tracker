@@ -1,8 +1,12 @@
-import { default } from '../__general/Header.vue';
 <template>
-  <div class="modal__backdrop"></div>
+  <div class="modal__backdrop"  @click="$emit('close')"></div>
   <div class="modal__content">
-    <h3 class="text-3xl">Add New Job</h3>
+    <i
+      aria-tag="button"
+      @click="$emit('close')"
+      class="fa-solid fa-x absolute top-5 right-10 px-4 py-2 rounded-full text-gray-400 text-2xl cursor-pointer hover:text-gray-100 hover:bg-slate-800"
+    ></i>
+    <h3 class="text-4xl pb-20 font-bold">Add New Job</h3>
     <form :on-submit.prevent="addNewJob" prev class="form">
       <fieldset class="flex justify-between">
         <div class="display flex flex-col items-start gap-1">
@@ -92,6 +96,7 @@ import { default } from '../__general/Header.vue';
 #2A2C34
 <script setup lang="ts">
 import moment from "moment";
+
 const addNewJob = (e: Event) => {
   const form = e.target;
   console.log({ form });
