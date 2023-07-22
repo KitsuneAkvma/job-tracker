@@ -1,5 +1,5 @@
 <template>
-  <div class="modal__backdrop"  @click="$emit('close')"></div>
+  <div class="modal__backdrop" @click="$emit('close')"></div>
   <div class="modal__content">
     <i
       aria-tag="button"
@@ -8,7 +8,7 @@
     ></i>
     <h3 class="text-4xl pb-20 font-bold">Add New Job</h3>
     <form :on-submit.prevent="addNewJob" prev class="form">
-      <fieldset class="flex justify-between">
+      <fieldset class="flex justify-between flex-wrap">
         <div class="display flex flex-col items-start gap-1">
           <label for="Company">Company</label>
           <input

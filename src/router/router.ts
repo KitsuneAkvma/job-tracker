@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import Home from "../views/Home/Home.vue";
 import Dashboard from "../views/Dashboard/Dashboard.vue";
 import LoginPage from "../views/LoginPage/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage/RegisterPage.vue";
@@ -6,7 +7,8 @@ import SettingsPanel from "../views/SettingsPanel/SettingsPanel.vue";
 import NotFound404 from "../views/404/NotFound404.vue";
 
 const routes = [
-  { path: "/", name: "Dashboard", component: Dashboard },
+  { path: "/", name: "Home", component: Home },
+  { path: "/Dashboard", name: "Dashboard", component: Dashboard },
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
   { path: "/settings", name: "SettingsPanel", component: SettingsPanel },

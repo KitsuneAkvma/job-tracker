@@ -54,7 +54,8 @@ h1 {
 
 .button--primary {
   @apply flex items-center justify-center
-rounded-full bg-lime-500 drop-shadow-md text-black text-2xl transition-all hover:bg-lime-400 hover:scale-105;
+rounded-full px-4
+py-2 bg-lime-500 drop-shadow-md text-black text-2xl transition-all hover:bg-lime-400 hover:scale-105;
 }
 
 .badge--sent {
