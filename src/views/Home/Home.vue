@@ -30,9 +30,10 @@
 import { router } from "../../router/router";
 import { useAuth0 } from "@auth0/auth0-vue";
 
-const { loginWithRedirect, isAuthenticated } = useAuth0();
+const { loginWithRedirect, isAuthenticated } =  useAuth0();
 
 const handleLoginOrDashboard = () => {
-  isAuthenticated ? router.push("/dashboard") : null;
+  console.log(isAuthenticated.value);
+  isAuthenticated.value ? router.push("/dashboard") : loginWithRedirect();
 };
 </script>

@@ -7,7 +7,7 @@
       class="fa-solid fa-x absolute top-5 right-10 px-4 py-2 rounded-full text-gray-400 text-2xl cursor-pointer hover:text-gray-100 hover:bg-slate-800"
     ></i>
     <h3 class="text-4xl pb-20 font-bold">Add New Job</h3>
-    <form :on-submit.prevent="addNewJob" prev class="form">
+    <form class="form">
       <fieldset class="flex justify-between flex-wrap">
         <div class="display flex flex-col items-start gap-1">
           <label for="Company">Company</label>
@@ -15,6 +15,8 @@
             type="text"
             name="Company"
             placeholder="Enter Company's name"
+            :value="formData.Company"
+            @change="updateField"
             class="form__input"
           />
         </div>
@@ -24,6 +26,8 @@
             type="text"
             name="JobTitle"
             placeholder="Name of position you're applying to"
+            :value="formData.JobTitle"
+            @change="updateField"
             class="form__input"
           />
         </div>
@@ -35,6 +39,8 @@
             type="text"
             name="JobLocation"
             placeholder="Is it remote or on-site - if so where"
+            :value="formData.JobLocation"
+            @change="updateField"
             class="form__input"
           />
         </div>
@@ -42,8 +48,9 @@
           <label for="ApplicationDate">When Applied</label>
           <input
             type="date"
-            :value="moment().format('yyyy-MM-DD')"
             name="ApplicationDate"
+            :value="formData.ApplicationDate"
+            @change="updateField"
             class="form__input"
           />
         </div>
@@ -55,6 +62,8 @@
             type="text"
             name="WhereFound"
             placeholder="Where you found this job offer"
+            :value="formData.WhereFound"
+            @change="updateField"
             class="form__input"
           />
         </div>
@@ -65,13 +74,19 @@
             type="text"
             name="JobOfferLink"
             placeholder="ex. https://www.linkedin.com/jobs/offer "
+            :value="formData.JobOfferLink"
+            @change="updateField"
             class="form__input"
           />
         </div>
       </fieldset>
       <div class="display flex flex-col items-start gap-1">
         <label for="ApplicationStatus">Status</label>
-        <select name="ApplicationStatus" class="form__select">
+        <select
+          name="ApplicationStatus"
+          @change="updateField"
+          class="form__select"
+        >
           <option value="Sent">Sent</option>
           <option value="Rejected">Rejected</option>
           <option value="Answered">Answered</option>
@@ -84,21 +99,73 @@
         <textarea
           name="CoverLetter"
           placeholder="Hello, I'm applying to this job because..."
+          :value="formData.CoverLetter"
+          @change="updateField"
           class="form__textarea w-full"
         />
       </div>
-      <button type="submit" class="button--primary w-1/2 h-10 self-center mt-2">
+      <button
+        type="button"
+        @click="handleSubmit"
+        class="button--primary w-1/2 h-10 self-center mt-2"
+      >
         Add
       </button>
     </form>
   </div>
 </template>
-#2A2C34
+
 <script setup lang="ts">
 import moment from "moment";
+import { reactive } from "vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 
-const addNewJob = (e: Event) => {
-  const form = e.target;
-  console.log({ form });
+interface IFormData {
+  Company: string;
+  JobTitle: string;
+  JobLocation: string;
+  ApplicationDate: string;
+  WhereFound: string;
+  JobOfferLink: string;
+  ApplicationStatus: string;
+  CoverLetter: string;
+}
+const emit = defineEmits(["close"]);
+const { user } = useAuth0();
+const sessionFormData = sessionStorage.getItem("addJobFormData");
+const parsedSessionFormData: IFormData | null = sessionFormData
+  ? JSON.parse(sessionFormData)
+  : null;
+
+const formData = reactive<IFormData>(
+  parsedSessionFormData
+    ? parsedSessionFormData
+    : {
+        Company: "",
+        JobTitle: "",
+        JobLocation: "",
+        ApplicationDate: moment().format("yyyy-MM-DD"),
+        WhereFound: "",
+        JobOfferLink: "",
+        ApplicationStatus: "rejected",
+        CoverLetter: "",
+      },
+);
+
+const updateField = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  const value = target.value;
+  const field: keyof IFormData = target.name as keyof IFormData;
+  formData[field] = value;
+  sessionStorage.setItem("addJobFormData", JSON.stringify(formData));
+};
+
+const handleSubmit = (e: Event) => {
+  e.preventDefault();
+  if (user === undefined) {
+    console.log("User problem");
+  } else console.log({ ...formData, Owner: user.value?.nickname });
+
+  emit("close");
 };
 </script>

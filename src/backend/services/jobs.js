@@ -1,11 +1,16 @@
 import { pool } from "../database/config.js";
 import colors from "colors";
 
-export const getAllJobs = async () => {
+export const getAllJobs = async (nickname) => {
   try {
-    const [rows] = await pool.query(`
+    console.log(nickname);
+    const [rows] = await pool.query(
+      `
     SELECT * FROM Jobs
-    `);
+    WHERE Owner = ?
+    `,
+      [nickname],
+    );
 
     return { status: 200, message: "Successfully found jobs", data: rows };
   } catch (error) {

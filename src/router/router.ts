@@ -8,7 +8,7 @@ import NotFound404 from "../views/404/NotFound404.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
-  { path: "/Dashboard", name: "Dashboard", component: Dashboard },
+  { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/login", name: "Login", component: LoginPage },
   { path: "/register", name: "Register", component: RegisterPage },
   { path: "/settings", name: "SettingsPanel", component: SettingsPanel },
@@ -19,3 +19,5 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+

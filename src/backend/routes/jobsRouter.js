@@ -9,9 +9,11 @@ import {
 
 export const jobsRouter = express.Router();
 
-jobsRouter.get("/", async (req, res, next) => {
+jobsRouter.get("/:nickname", async (req, res, next) => {
   try {
-    const jobs = await getAllJobs();
+    const nickname = req.params;
+    console.log(nickname);
+    const jobs = await getAllJobs(nickname);
     res.status(jobs.status).json(jobs);
   } catch (error) {
     next(error);
