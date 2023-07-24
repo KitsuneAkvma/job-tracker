@@ -1,9 +1,8 @@
 import { pool } from "../database/config.js";
 import colors from "colors";
 
-export const getAllJobs = async (nickname) => {
+export const getAllJobs = async ({ nickname }) => {
   try {
-    console.log(nickname);
     const [rows] = await pool.query(
       `
     SELECT * FROM Jobs
@@ -15,6 +14,7 @@ export const getAllJobs = async (nickname) => {
     return { status: 200, message: "Successfully found jobs", data: rows };
   } catch (error) {
     console.error(colors.bgRed(error));
+    return { status: 500, error };
   }
 };
 export const getJob = async (id) => {
@@ -24,12 +24,13 @@ export const getJob = async (id) => {
     SELECT * FROM Jobs
     WHERE _ID = ?
     `,
-      [id],
+      id,
     );
 
     return { status: 302, message: "Successfully found job", data: rows };
   } catch (error) {
     console.error(colors.bgRed(error));
+    return { status: 500, error };
   }
 };
 export const addJob = async (jobData) => {
@@ -38,19 +39,20 @@ export const addJob = async (jobData) => {
   try {
     const [rows] = await pool.query(
       `
-  INSERT INTO Jobs (Company, JobTitle, JobLocation, ApplicationDate, ApplicationStatus, CoverLetter, Owner)
-  VALUES (?, ?, ?, ?, ?, ?, ?)`,
+  INSERT INTO Jobs (Company, JobTitle, JobLocation, ApplicationDate, WhereFound, JobOfferLink, ApplicationStatus, CoverLetter, Owner)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [...values],
     );
 
-    const { company, jobTitle, applicationDate } = jobData;
+    const { Company, JobTitle, ApplicationDate } = jobData;
     return {
       status: 201,
-      message: `Added ${jobTitle} job.`,
-      data: { id: rows.insertId, company, jobTitle, applicationDate },
+      message: `Added ${JobTitle} job.`,
+      data: { id: rows.insertId, Company, JobTitle, ApplicationDate, Owner },
     };
   } catch (error) {
     console.error(colors.bgRed(error));
+    return { status: 500, error };
   }
 };
 
@@ -66,6 +68,7 @@ export const deleteJob = async (id) => {
     return { status: 204 };
   } catch (error) {
     console.error(colors.bgRed(error));
+    return { status: 500, error };
   }
 };
 
@@ -83,5 +86,6 @@ export const updateJob = async (id, credentials) => {
     return { status: 202, message: "Successfully updated job", data: rows };
   } catch (error) {
     console.error(colors.bgRed(error));
+    return { status: 500, error };
   }
 };

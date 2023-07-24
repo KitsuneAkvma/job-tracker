@@ -119,6 +119,7 @@
 import moment from "moment";
 import { reactive } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
+import { addJob } from "../../utils/API/jobs";
 
 interface IFormData {
   Company: string;
@@ -132,24 +133,25 @@ interface IFormData {
 }
 const emit = defineEmits(["close"]);
 const { user } = useAuth0();
+const nickname: string = user.value?.nickname ?? "";
 const sessionFormData = sessionStorage.getItem("addJobFormData");
 const parsedSessionFormData: IFormData | null = sessionFormData
   ? JSON.parse(sessionFormData)
   : null;
 
+const initialFormData = {
+  Company: "",
+  JobTitle: "",
+  JobLocation: "",
+  ApplicationDate: moment().format("yyyy-MM-DD"),
+  WhereFound: "",
+  JobOfferLink: "",
+  ApplicationStatus: "rejected",
+  CoverLetter: "",
+};
+
 const formData = reactive<IFormData>(
-  parsedSessionFormData
-    ? parsedSessionFormData
-    : {
-        Company: "",
-        JobTitle: "",
-        JobLocation: "",
-        ApplicationDate: moment().format("yyyy-MM-DD"),
-        WhereFound: "",
-        JobOfferLink: "",
-        ApplicationStatus: "rejected",
-        CoverLetter: "",
-      },
+  parsedSessionFormData ? parsedSessionFormData : initialFormData,
 );
 
 const updateField = (e: Event) => {
@@ -162,10 +164,13 @@ const updateField = (e: Event) => {
 
 const handleSubmit = (e: Event) => {
   e.preventDefault();
-  if (user === undefined) {
+  if (nickname === "" || nickname === undefined) {
     console.log("User problem");
-  } else console.log({ ...formData, Owner: user.value?.nickname });
-
-  emit("close");
+    return;
+  } else {
+    addJob({ ...formData, Owner: nickname });
+    sessionStorage.setItem("addJobFormData", JSON.stringify(initialFormData));
+    emit("close");
+  }
 };
 </script>

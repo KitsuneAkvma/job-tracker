@@ -32,11 +32,11 @@ export interface INewJobData {
   JobTitle: string;
   WhereFound: string;
   JobLocation: string;
-  ApplicationDate: Date;
+  ApplicationDate: string;
   ApplicationStatus: string;
   CoverLetter: string;
   JobOfferLink: string;
-  Owner: number;
+  Owner: string;
 }
 
 export interface IUserData {

@@ -12,14 +12,13 @@ export const jobsRouter = express.Router();
 jobsRouter.get("/:nickname", async (req, res, next) => {
   try {
     const nickname = req.params;
-    console.log(nickname);
     const jobs = await getAllJobs(nickname);
     res.status(jobs.status).json(jobs);
   } catch (error) {
     next(error);
   }
 });
-jobsRouter.get("/:id", async (req, res, next) => {
+jobsRouter.get("/job/:id", async (req, res, next) => {
   const id = req.params.id;
   try {
     const job = await getJob(id);

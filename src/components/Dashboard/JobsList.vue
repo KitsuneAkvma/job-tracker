@@ -36,7 +36,7 @@ import { useSelectClass } from "../../utils/useSelectClass";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 const { user } = useAuth0();
-const nickname = user.value?.nickname;
+const nickname: string = user.value?.nickname ?? "";
 const fetchJobs = async (): Promise<IJobData[]> => {
   const jobs = await getAllJobs(nickname);
   return jobs;
