@@ -18,7 +18,7 @@ export interface IJobData {
   JobTitle: string;
   WhereFound: string;
   JobLocation: string;
-  ApplicationDate: Date;
+  ApplicationDate: string;
   ApplicationStatus: string;
   CoverLetter: string;
   JobOfferLink: string;

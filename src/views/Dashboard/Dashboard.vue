@@ -53,8 +53,8 @@
 
 <script async setup lang="ts">
 import JobList from "../../components/Dashboard/JobsList.vue";
-import JobModal from "../../components/Dashboard/JobModal.vue";
-import addJobModal from "../../components/Dashboard/addJobModal.vue";
+import JobModal from "../../components/Dashboard/Modals/JobInfoModal.vue";
+import addJobModal from "../../components/Dashboard/Modals/AddJobModal.vue";
 import { ref } from "vue";
 import { IJobData } from "../../utils/types";
 

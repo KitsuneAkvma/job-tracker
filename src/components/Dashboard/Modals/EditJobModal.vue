@@ -109,17 +109,17 @@
         @click="handleSubmit"
         class="button--primary w-1/2 h-10 self-center mt-2"
       >
-        Add
+        Save Changes
       </button>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
-import { reactive } from "vue";
+import { reactive, type PropType } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
-import { addJob } from "../../utils/API/jobs";
+import { addJob } from "../../../utils/API/jobs";
+import { IJobData } from "../../../utils/types";
 
 interface IFormData {
   Company: string;
@@ -132,27 +132,13 @@ interface IFormData {
   CoverLetter: string;
 }
 const emit = defineEmits(["close"]);
+const props = defineProps({ jobInfo: Object as PropType<IJobData> });
 const { user } = useAuth0();
 const nickname: string = user.value?.nickname ?? "";
-const sessionFormData = sessionStorage.getItem("addJobFormData");
-const parsedSessionFormData: IFormData | null = sessionFormData
-  ? JSON.parse(sessionFormData)
-  : null;
 
-const initialFormData = {
-  Company: "",
-  JobTitle: "",
-  JobLocation: "",
-  ApplicationDate: moment().format("yyyy-MM-DD"),
-  WhereFound: "",
-  JobOfferLink: "",
-  ApplicationStatus: "rejected",
-  CoverLetter: "",
-};
+const initialFormData = props.jobInfo as IJobData;
 
-const formData = reactive<IFormData>(
-  parsedSessionFormData ? parsedSessionFormData : initialFormData,
-);
+const formData = reactive(initialFormData);
 
 const updateField = (e: Event) => {
   const target = e.target as HTMLInputElement;

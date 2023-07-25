@@ -26,6 +26,9 @@
       </div>
     </li>
   </ul>
+  <h3 v-else-if="error.status !== 200" class="text-rose-500 text-lg">
+    {{ error.message }}
+  </h3>
   <h3 v-else class="text-gray-500">You don't have any job added</h3>
 </template>
 
@@ -34,17 +37,30 @@ import { getAllJobs } from "../../utils/API/jobs";
 import { IJobData } from "../../utils/types";
 import { useSelectClass } from "../../utils/useSelectClass";
 import { useAuth0 } from "@auth0/auth0-vue";
+import { onBeforeMount, ref } from "vue";
 
-const { user } = useAuth0();
+const error = ref({ status: 200, message: "Ok." });
+const { user, logout } = useAuth0();
+onBeforeMount(() => {
+  !user.value && logout();
+});
+
 const nickname: string = user.value?.nickname ?? "";
 const fetchJobs = async (): Promise<IJobData[]> => {
+  if (nickname.length < 1) {
+    error.value = {
+      status: 404,
+      message: "Problem with user authentication. Please refresh page",
+    };
+    return [];
+  }
   const jobs = await getAllJobs(nickname);
   return jobs;
 };
 
-const jobs = await fetchJobs();
-const doesHaveJobs = jobs.length >= 1;
-const sortedJobs = doesHaveJobs ? sortJobs(jobs, "Updated") : null;
+const jobs = ref(await fetchJobs());
+const doesHaveJobs = jobs.value.length >= 1;
+const sortedJobs = doesHaveJobs ? sortJobs(jobs.value, "Updated") : null;
 
 type TSortOptions =
   | "Company"
@@ -61,7 +77,7 @@ function sortJobs(items: IJobData[], option: TSortOptions) {
   });
   return sortedItems;
 }
-function formatDate(date: Date) {
+function formatDate(date: string | Date) {
   const formatedDate = new Date(String(date).slice(0, 10)).toLocaleString(
     "en-US",
     {

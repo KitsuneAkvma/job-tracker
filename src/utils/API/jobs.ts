@@ -8,7 +8,8 @@ export const getAllJobs = async (nickname: string): Promise<IJobData[]> => {
 
     return res.data.data;
   } catch (error: any) {
-    console.error({ error });
+    console.error((error as Error).message);
+    console.error({ nickname });
     return error;
   }
 };
@@ -19,7 +20,7 @@ export const getJob = async (id: number) => {
 
     return res.data.data;
   } catch (error) {
-    console.error({ error });
+    console.error((error as Error).message);
     return error;
   }
 };
@@ -29,7 +30,7 @@ export const addJob = async (jobData: INewJobData) => {
 
     return res.data.data;
   } catch (error) {
-    console.error({ error });
+    console.error((error as Error).message);
     return error;
   }
 };
