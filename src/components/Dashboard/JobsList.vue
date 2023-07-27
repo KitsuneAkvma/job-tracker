@@ -37,21 +37,20 @@ import { getAllJobs } from "../../utils/API/jobs";
 import { IJobData } from "../../utils/types";
 import { useSelectClass } from "../../utils/useSelectClass";
 import { useAuth0 } from "@auth0/auth0-vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, reactive, ref } from 'vue';
 
-const error = ref({ status: 200, message: "Ok." });
-const { user, logout } = useAuth0();
+const error = reactive({ status: 200, message: "Ok." });
+const { user } = useAuth0();
 onBeforeMount(() => {
+  const { user, logout } = useAuth0();
   !user.value && logout();
 });
 
 const nickname: string = user.value?.nickname ?? "";
 const fetchJobs = async (): Promise<IJobData[]> => {
   if (nickname.length < 1) {
-    error.value = {
-      status: 404,
-      message: "Problem with user authentication. Please refresh page",
-    };
+    error.status = 404;
+    error.message = "Problem with user authentication. Please refresh page";
     return [];
   }
   const jobs = await getAllJobs(nickname);
@@ -59,6 +58,8 @@ const fetchJobs = async (): Promise<IJobData[]> => {
 };
 
 const jobs = ref(await fetchJobs());
+console.log(jobs.value);
+
 const doesHaveJobs = jobs.value.length >= 1;
 const sortedJobs = doesHaveJobs ? sortJobs(jobs.value, "Updated") : null;
 

@@ -45,30 +45,38 @@
   </main>
   <JobModal
     v-if="isInfoModalOpen"
+    @edit="openEditModal"
     @close="closeInfoModal"
     :jobOffer="selectedJobOffer"
   />
   <addJobModal v-if="isAddJobModalOpen" @close="closeAddModal" />
+  <EditJobModal
+    v-if="isEditModalOpen"
+    @close="closeEditModal"
+    :jobOffer="selectedJobOffer"
+  />
 </template>
 
 <script async setup lang="ts">
 import JobList from "../../components/Dashboard/JobsList.vue";
 import JobModal from "../../components/Dashboard/Modals/JobInfoModal.vue";
 import addJobModal from "../../components/Dashboard/Modals/AddJobModal.vue";
-import { ref } from "vue";
+import { ref, } from "vue";
 import { IJobData } from "../../utils/types";
+import EditJobModal from "../../components/Dashboard/Modals/EditJobModal.vue";
 
 const isAddJobModalOpen = ref(false);
 const isInfoModalOpen = ref(false);
+const isEditModalOpen = ref(false);
 const selectedJobOffer = ref<IJobData>();
 
 const openAddModal = () => (isAddJobModalOpen.value = true);
 const closeAddModal = () => (isAddJobModalOpen.value = false);
-
 const openInfoModal = (job: IJobData) => {
-  selectedJobOffer.value = job;
+  selectedJobOffer!.value = job;
   isInfoModalOpen.value = true;
-  console.log(selectedJobOffer);
 };
 const closeInfoModal = () => (isInfoModalOpen.value = false);
+const openEditModal = () => (isEditModalOpen.value = true);
+const closeEditModal = () => (isEditModalOpen.value = false);
 </script>

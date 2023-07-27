@@ -35,6 +35,16 @@ export const addJob = async (jobData: INewJobData) => {
   }
 };
 
-export const removeJob = async () => {};
+export const editJob = async (jobData: IJobData) => {
+  const id = jobData._ID;
+  try {
+    const res: AxiosResponse = await axios.put(`${URL}/${id}`);
 
-export const editJob = async () => {};
+    return;
+  } catch (error) {
+    console.error((error as Error).message);
+    return error;
+  }
+};
+
+export const removeJob = async () => {};

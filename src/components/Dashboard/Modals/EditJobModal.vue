@@ -49,7 +49,7 @@
           <input
             type="date"
             name="ApplicationDate"
-            :value="formData.ApplicationDate"
+            :value="moment(formData.ApplicationDate)"
             @change="updateField"
             class="form__input"
           />
@@ -118,8 +118,9 @@
 <script setup lang="ts">
 import { reactive, type PropType } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
-import { addJob } from "../../../utils/API/jobs";
+import { editJob } from "../../../utils/API/jobs";
 import { IJobData } from "../../../utils/types";
+import moment from "moment";
 
 interface IFormData {
   Company: string;
@@ -132,20 +133,21 @@ interface IFormData {
   CoverLetter: string;
 }
 const emit = defineEmits(["close"]);
-const props = defineProps({ jobInfo: Object as PropType<IJobData> });
+const props = defineProps({
+  jobOffer: { type: Object as PropType<IJobData>, required: true },
+});
 const { user } = useAuth0();
 const nickname: string = user.value?.nickname ?? "";
 
-const initialFormData = props.jobInfo as IJobData;
+const initialFormData = props.jobOffer as IJobData;
 
-const formData = reactive(initialFormData);
+const formData = reactive<IJobData>(initialFormData);
 
 const updateField = (e: Event) => {
   const target = e.target as HTMLInputElement;
   const value = target.value;
   const field: keyof IFormData = target.name as keyof IFormData;
   formData[field] = value;
-  sessionStorage.setItem("addJobFormData", JSON.stringify(formData));
 };
 
 const handleSubmit = (e: Event) => {
@@ -154,8 +156,7 @@ const handleSubmit = (e: Event) => {
     console.log("User problem");
     return;
   } else {
-    addJob({ ...formData, Owner: nickname });
-    sessionStorage.setItem("addJobFormData", JSON.stringify(initialFormData));
+    editJob(formData);
     emit("close");
   }
 };

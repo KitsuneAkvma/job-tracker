@@ -6,9 +6,9 @@ JobLocation VARCHAR(50) NOT NULL,
 ApplicationDate DATE,
 ApplicationStatus VARCHAR(20) NOT NULL,
 CoverLetter TEXT,
+WhereFound TEXT,
 JobOfferLink TEXT,
-Owner INT,
-FOREIGN KEY (Owner) REFERENCES Users(_ID),
+Owner TEXT,
 Created TIMESTAMP NOT NULL DEFAULT NOW(),
 Updated TIMESTAMP NOT NULL DEFAULT NOW()
 );
